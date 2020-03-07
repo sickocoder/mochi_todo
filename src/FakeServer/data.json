@@ -1,0 +1,10 @@
+{
+  "products": [
+    {
+      "name": "Redmi Note 7 Pro",
+      "price": "120.000",
+      "quantity": "1",
+      "id": 1
+    }
+  ]
+}
