@@ -1,47 +1,51 @@
-import React, { useState, useEffect, useRef, useMemo } from "react";
+import React, { useState, useEffect, useRef, useMemo } from 'react'
 
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from 'react-redux'
 import {
-  addTodo,
-  removeTodo,
-  updateTodo,
-  getTodos,
+  addCart,
+  removeCart,
+  updateCart,
+  getCarts,
   clearCart
-} from "../../Store/actions";
+} from '../../Store/actions'
 
-import { Container } from "./styles";
-import TodoItem from "../../Components/TodoItem";
+import { Container } from './styles'
+import CartItem from '../../Components/CartItem'
+import EmpyCart from '../../Components/EmpyCart'
+
+import MochiStoreLogo from '../../Assets/MochiStore.png'
 
 export default function Home() {
-  const [selectedCartItem, setSelectedCartItem] = useState(null);
+  const [selectedCartItem, setSelectedCartItem] = useState(null)
 
-  const productNameRef = useRef(null);
-  const priceRef = useRef(null);
-  const quantityRef = useRef(null);
+  const productNameRef = useRef(null)
+  const priceRef = useRef(null)
+  const quantityRef = useRef(null)
 
-  const data = useSelector(state => state.data);
-  const dispatch = useDispatch();
+  const data = useSelector(state => state.data)
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    (async () => {
-      await fetch("http://localhost:3333/products")
+    ;(async () => {
+      await fetch('http://localhost:3333/products')
         .then(resp => resp.json())
         .then(data => {
-          dispatch(getTodos(data));
-        });
-    })();
-  }, [dispatch]);
+          dispatch(getCarts(data))
+        })
+    })()
+  }, [dispatch])
 
   const productCount = useMemo(() => {
-    let total = 0;
+    let total = 0
     data.forEach(
       item => (total += parseInt(item.price) * parseInt(item.quantity))
-    );
-    return total;
-  }, [data]);
+    )
+    return total
+  }, [data])
 
   return (
     <Container>
+      <img src={MochiStoreLogo} alt="app logo" />
       <div className="middleSection">
         <form onSubmit={handleSubmit}>
           <input
@@ -69,33 +73,37 @@ export default function Home() {
           <button
             className="btnClearAll"
             type="submit"
-            style={{ width: "100%" }}
+            style={{ width: '100%' }}
           >
             GUARDAR NO CARRINHO
           </button>
         </form>
 
-        <ul>
-          {data.map(item => (
-            <div
-              key={item.id}
-              className={item === selectedCartItem ? "selected" : ""}
-            >
-              <TodoItem
-                onDeletePress={handleRemove}
-                onEditPress={handleUpdate}
-                data={item}
-              />
-            </div>
-          ))}
-        </ul>
+        {data.length > 0 ? (
+          <ul>
+            {data.map(item => (
+              <div
+                key={item.id + item.name}
+                className={item === selectedCartItem ? 'selected' : ''}
+              >
+                <CartItem
+                  onDeletePress={handleRemove}
+                  onEditPress={handleUpdate}
+                  data={item}
+                />
+              </div>
+            ))}
+          </ul>
+        ) : (
+          <EmpyCart />
+        )}
 
         {data.length > 0 ? (
           <div className="bottomSection">
             <span>
-              {data.length} íte{data.length > 1 ? "ns" : "m"}
+              {data.length} íte{data.length > 1 ? 'ns' : 'm'}
               <br />
-              Total: {productCount * 1000}kz
+              Total: {productCount}kz
             </span>
             <button className="btnClearAll" onClick={handleClearAll}>
               LIMPAR TUDO
@@ -106,59 +114,65 @@ export default function Home() {
         )}
       </div>
     </Container>
-  );
+  )
 
   function handleSubmit(event) {
-    event.preventDefault();
+    event.preventDefault()
 
-    const name = productNameRef.current.value;
-    const price = priceRef.current.value;
-    const quantity = quantityRef.current.value;
+    const name = productNameRef.current.value
+    const price = priceRef.current.value
+    const quantity = quantityRef.current.value
 
-    if (name === "" || price === "" || quantity === "") {
-      alert("Por favor preencha todos os campos!");
-      return;
+    if (name === '' || price === '' || quantity === '') {
+      alert('Por favor preencha todos os campos!')
+      return
     }
 
     if (selectedCartItem === null) {
+      let id = 1
+      if (data.length > 0) {
+        id = id + data[data.length - 1].id
+      }
+
       dispatch(
-        addTodo({
+        addCart({
+          id,
           name,
           price,
           quantity
         })
-      );
+      )
     } else {
       dispatch(
-        updateTodo({
+        updateCart({
           id: selectedCartItem.id,
           name,
           price,
           quantity
         })
-      );
-      setSelectedCartItem(null);
+      )
+      setSelectedCartItem(null)
     }
 
-    productNameRef.current.value = "";
-    quantityRef.current.value = "";
-    priceRef.current.value = "";
+    productNameRef.current.value = ''
+    quantityRef.current.value = ''
+    priceRef.current.value = ''
   }
 
   function handleRemove(id) {
-    dispatch(removeTodo({ id }));
+    dispatch(removeCart({ id }))
   }
 
   function handleUpdate(id) {
-    const product = data.find(item => item.id === id);
-    setSelectedCartItem(product);
+    const product = data.find(item => item.id === id)
+    setSelectedCartItem(product)
 
-    productNameRef.current.value = product.name;
-    priceRef.current.value = product.price;
-    quantityRef.current.value = product.quantity;
+    productNameRef.current.value = product.name
+    priceRef.current.value = product.price
+    quantityRef.current.value = product.quantity
   }
 
   function handleClearAll() {
-    dispatch(clearCart(data));
+    dispatch(clearCart(data))
   }
 }

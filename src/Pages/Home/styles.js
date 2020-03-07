@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const Container = styled.div`
   width: 100%;
@@ -11,7 +11,7 @@ export const Container = styled.div`
 
   div.middleSection {
     width: 40%;
-    min-width: 320px;
+    min-width: 500px;
     padding: 16px;
 
     overflow: hidden;
@@ -82,4 +82,4 @@ export const Container = styled.div`
   .btnClearAll:hover {
     background-color: #ffffff;
   }
-`;
+`

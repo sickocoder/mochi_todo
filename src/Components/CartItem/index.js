@@ -1,17 +1,17 @@
-import React from "react";
+import React from 'react'
 
-import { FaTrashAlt, FaRegEdit } from "react-icons/fa";
+import { FaTrashAlt, FaRegEdit } from 'react-icons/fa'
 
-import { Container } from "./styles";
+import { Container } from './styles'
 
-export default function TodoItem({
+export default function CartItem({
   data,
   onEditPress,
   onDeletePress,
   onItemPress
 }) {
   return (
-    <Container style={{ pointerEvents: data.done ? "none" : "auto" }}>
+    <Container style={{ pointerEvents: data.done ? 'none' : 'auto' }}>
       <div className="back">
         <button onClick={() => onEditPress(data.id)}>
           <FaRegEdit size={18} color="#fff" />
@@ -22,7 +22,7 @@ export default function TodoItem({
       </div>
       <div
         className="up"
-        style={{ textDecoration: data.done ? "line-through" : "none" }}
+        style={{ textDecoration: data.done ? 'line-through' : 'none' }}
       >
         <img
           src="https://img.favpng.com/0/1/14/sneakers-skate-shoe-nike-one-png-favpng-hEt292Qw6YhB7kAvJ7XbgRg7X.jpg"
@@ -36,5 +36,5 @@ export default function TodoItem({
         </div>
       </div>
     </Container>
-  );
+  )
 }
