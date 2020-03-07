@@ -8,7 +8,7 @@ Para rodar este projecto é você precisa ter instalado na sua máquina:
 - NodeJS (versão 11+)
 - npm ou yarn
   
-Precisará também instalar a biblioteca [json-server](https://pip.pypa.io/en/stable/). Eis abaixo as instruções:
+Precisará também instalar a biblioteca [json-server](https://github.com/typicode/json-server). Eis abaixo as instruções:
 
 #### Yarn
 ```
@@ -38,7 +38,7 @@ Depois de tudo só precisa abrir o broswer(caso não abra de forma automática) 
 
 ## Tecnologias e bibliotecas usadas
 
-* [styled-components](http://www.dropwizard.io/1.0.2/docs/) - Usado para criar e estilizar componentes da UI
-* [react-redux](https://maven.apache.org/) - Usado para gerir o estado e manter a lógica da aplicação
-* [redux-saga](https://rometools.github.io/rome/) - Integrado com o redux sendo responsável pelos efeitos colaterais (chamadas à API)
-* [axios](https://rometools.github.io/rome/) - Para comunicar com o "FakeServer" (json-server)
+* [styled-components](https://styled-components.com/) - Usado para criar e estilizar componentes da UI
+* [react-redux](https://react-redux.js.org/) - Usado para gerir o estado e manter a lógica da aplicação
+* [redux-saga](https://redux-saga.js.org/) - Integrado com o redux sendo responsável pelos efeitos colaterais (chamadas à API)
+* [axios](https://github.com/axios/axios) - Para comunicar com o "FakeServer" (json-server)
