@@ -22,8 +22,11 @@ npm install -g json-server
 
 ## Instalação
 
-Abaixo está passo à passo para poder rodar o projecto em sua máquina:
+Para rodar o projecto em sua máquina você deve navegar até ao directório do projecto(clonado) e digitar os seguintes comandos no seu terminal:
 
+```
+yarn install ou npm install
+```
 ```
 json-server src/FakeServer/data.js --port 3333
 ```
